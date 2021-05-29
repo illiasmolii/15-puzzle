@@ -25,7 +25,7 @@ class InteractiveLoopTest { // todo
 	}
 
 	@Test
-	void print_congratulations_message_when_user_win() {
+	void print_board_and_congratulations_message_when_user_win() {
 
 	}
 

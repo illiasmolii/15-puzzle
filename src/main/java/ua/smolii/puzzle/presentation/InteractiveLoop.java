@@ -29,6 +29,7 @@ public class InteractiveLoop {
 		}
 		while (board.getGameState() != GameState.WIN);
 
+		printer.print(board);
 		printer.win();
 	}
 }
