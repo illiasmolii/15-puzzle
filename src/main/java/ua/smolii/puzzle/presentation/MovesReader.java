@@ -27,7 +27,7 @@ public class MovesReader {
 			case "d":
 				return Direction.RIGHT;
 			default:
-				throw new IllegalArgumentException("There is no direction: " + input);
+				throw new InvalidDirectionException(input);
 		}
 	}
 }

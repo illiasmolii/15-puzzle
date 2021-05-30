@@ -10,12 +10,12 @@ public class UpService extends MoveService {
 	}
 
 	@Override
-	protected int getMovedTileY(Board board) {
-		return getEmptyPositionY(board) + 1;
+	protected int getMovedTileRow(Board board) {
+		return board.getEmptyPositionRow() + 1;
 	}
 
 	@Override
-	protected int getMovedTileX(Board board) {
-		return getEmptyPositionX(board);
+	protected int getMovedTileColumn(Board board) {
+		return board.getEmptyPositionColumn();
 	}
 }

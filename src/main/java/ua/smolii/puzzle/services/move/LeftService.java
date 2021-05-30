@@ -10,12 +10,12 @@ public class LeftService extends MoveService {
 	}
 
 	@Override
-	protected int getMovedTileY(Board board) {
-		return getEmptyPositionY(board);
+	protected int getMovedTileRow(Board board) {
+		return board.getEmptyPositionRow();
 	}
 
 	@Override
-	protected int getMovedTileX(Board board) {
-		return getEmptyPositionX(board) + 1;
+	protected int getMovedTileColumn(Board board) {
+		return board.getEmptyPositionColumn() + 1;
 	}
 }

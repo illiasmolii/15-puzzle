@@ -12,32 +12,23 @@ public abstract class MoveService {
 			return;
 		}
 
-		int y = getEmptyPositionY(board);
-		int x = getEmptyPositionX(board);
+		int emptyRow = board.getEmptyPositionRow();
+		int emptyColumn = board.getEmptyPositionColumn();
 
-		int movedTileY = getMovedTileY(board);
-		int movedTileX = getMovedTileX(board);
+		int movedTileRow = getMovedTileRow(board);
+		int movedTileColumn = getMovedTileColumn(board);
 
-		Tile[][] positions = board.getPositions();
-		Tile movedTile = positions[movedTileY][movedTileX];
+		Tile movedTile = board.getTile(movedTileRow, movedTileColumn);
 
-		positions[y][x] = movedTile;
+		board.setTile(movedTile, emptyRow, emptyColumn);
+		board.setTile(null, movedTileRow, movedTileColumn);
 
-		positions[movedTileY][movedTileX] = null;
-		board.setEmptyPosition(Pair.with(movedTileY, movedTileX));
-	}
-
-	protected int getEmptyPositionX(Board board) {
-		return board.getEmptyPosition().getValue1();
-	}
-
-	protected int getEmptyPositionY(Board board) {
-		return board.getEmptyPosition().getValue0();
+		board.setEmptyPosition(Pair.with(movedTileRow, movedTileColumn));
 	}
 
 	protected abstract boolean isAllowedToMove(Board board);
 
-	protected abstract int getMovedTileY(Board board);
+	protected abstract int getMovedTileRow(Board board);
 
-	protected abstract int getMovedTileX(Board board);
+	protected abstract int getMovedTileColumn(Board board);
 }

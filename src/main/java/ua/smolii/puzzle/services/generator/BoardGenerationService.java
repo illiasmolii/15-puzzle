@@ -33,7 +33,7 @@ public class BoardGenerationService {
 
 		int counter = 0;
 		for (int row = 0; row < size; row++) {
-			for (int column = 0; column < size; column++) { // todo third double iteration
+			for (int column = 0; column < size; column++) {
 				Integer value = values.get(counter);
 				result[row][column] =
 						value != null

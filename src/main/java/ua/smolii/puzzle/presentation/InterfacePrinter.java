@@ -1,7 +1,6 @@
 package ua.smolii.puzzle.presentation;
 
 import ua.smolii.puzzle.model.Board;
-import ua.smolii.puzzle.model.Tile;
 
 // todo inject System.out to make it testable
 public class InterfacePrinter {
@@ -23,18 +22,7 @@ public class InterfacePrinter {
 	}
 
 	public void print(Board board) {
-		Tile[][] positions = board.getPositions();
-		for (int row = 0; row < positions.length; row++) {
-			for (int column = 0; column < positions[row].length; column++) { // todo fourth iteration through positions
-				Tile tile = positions[row][column];
-				if (tile != null) {
-					System.out.print("[" + String.format("%02d", tile.getValue()) + "] ");
-				} else {
-					System.out. print(" XX  ");
-				}
-			}
-			System.out.println();
-		}
+		System.out.println(board);
 	}
 
 	public void win() {

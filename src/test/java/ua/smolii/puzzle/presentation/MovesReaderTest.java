@@ -66,6 +66,6 @@ class MovesReaderTest {
 		ThrowableAssert.ThrowingCallable methodCall = () -> movesReader.read();
 
 		// then
-		assertThatThrownBy(methodCall).isInstanceOf(IllegalArgumentException.class);
+		assertThatThrownBy(methodCall).isInstanceOf(InvalidDirectionException.class);
 	}
 }

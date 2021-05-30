@@ -15,12 +15,4 @@ public class Tile implements Comparable<Tile> {
 	public int compareTo(Tile other) {
 		return this.getValue() - other.getValue();
 	}
-
-	public Tile getNext() {
-		return new Tile(this.getValue() + 1);
-	}
-
-	public static Tile getFirst() {
-		return new Tile(1);
-	}
 }

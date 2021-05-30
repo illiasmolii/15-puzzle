@@ -1,8 +1,6 @@
 package ua.smolii.puzzle.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static ua.smolii.puzzle.model.Direction.DOWN;
 import static ua.smolii.puzzle.model.Direction.LEFT;
 import static ua.smolii.puzzle.model.Direction.RIGHT;
@@ -13,10 +11,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ua.smolii.puzzle.services.WinService;
 import ua.smolii.puzzle.services.move.DownService;
 import ua.smolii.puzzle.services.move.LeftService;
 import ua.smolii.puzzle.services.move.MoveService;
@@ -25,9 +21,6 @@ import ua.smolii.puzzle.services.move.UpService;
 
 @ExtendWith(MockitoExtension.class)
 class BoardTest {
-
-	@Mock
-	private WinService winService;
 
 	private static final Map<Direction, MoveService> moveServices = new HashMap<Direction, MoveService>() {{
 		put(Direction.UP, new UpService());
@@ -46,11 +39,8 @@ class BoardTest {
 						{new Tile(), new Tile(), 	   null, new Tile()},
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				},
-				moveServices,
-				winService
+				moveServices
 		);
-
-		given(winService.isWin(any(Board.class))).willReturn(false);
 
 		// when
 		board.move(UP);
@@ -64,6 +54,8 @@ class BoardTest {
 						{new Tile(), new Tile(), 	   null, new Tile()}
 				}
 		);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(3);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(2);
 	}
 
 	@Test
@@ -76,11 +68,8 @@ class BoardTest {
 						{new Tile(), new Tile(), 	   null, new Tile()},
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				},
-				moveServices,
-				winService
+				moveServices
 		);
-
-		given(winService.isWin(any(Board.class))).willReturn(false);
 
 		// when
 		board.move(DOWN);
@@ -94,6 +83,8 @@ class BoardTest {
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				}
 		);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(1);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(2);
 	}
 
 	@Test
@@ -106,11 +97,8 @@ class BoardTest {
 						{new Tile(), new Tile(), 	   null, new Tile()},
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				},
-				moveServices,
-				winService
+				moveServices
 		);
-
-		given(winService.isWin(any(Board.class))).willReturn(false);
 
 		// when
 		board.move(LEFT);
@@ -124,6 +112,8 @@ class BoardTest {
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				}
 		);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(2);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(3);
 	}
 
 	@Test
@@ -136,11 +126,8 @@ class BoardTest {
 						{new Tile(), new Tile(), 	   null, new Tile()},
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				},
-				moveServices,
-				winService
+				moveServices
 		);
-
-		given(winService.isWin(any(Board.class))).willReturn(false);
 
 		// when
 		board.move(RIGHT);
@@ -154,6 +141,8 @@ class BoardTest {
 						{new Tile(), new Tile(), new Tile(), new Tile()}
 				}
 		);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(2);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(1);
 	}
 
 	@Test
@@ -165,12 +154,14 @@ class BoardTest {
 				{new Tile(), new Tile(), new Tile(), new Tile()},
 				{new Tile(), new Tile(), new Tile(), new Tile()}
 		};
-		Board board = new Board(initialPositions, moveServices, winService);
+		Board board = new Board(initialPositions, moveServices);
 
 		// when - then
 		board.move(DOWN);
 
 		assertThat(board.getPositions()).isEqualTo(initialPositions);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(0);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(2);
 	}
 
 	@Test
@@ -182,13 +173,15 @@ class BoardTest {
 				{new Tile(), new Tile(), new Tile(), new Tile()},
 				{new Tile(), 	   null, new Tile(), new Tile()}
 		};
-		Board board = new Board(initialPositions, moveServices, winService);
+		Board board = new Board(initialPositions, moveServices);
 
 		// when
 		board.move(UP);
 
 		// then
 		assertThat(board.getPositions()).isEqualTo(initialPositions);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(3);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(1);
 	}
 
 	@Test
@@ -200,13 +193,15 @@ class BoardTest {
 				{new Tile(), new Tile(), new Tile(), new Tile()},
 				{new Tile(), new Tile(), new Tile(), 	   null}
 		};
-		Board board = new Board(initialPositions, moveServices, winService);
+		Board board = new Board(initialPositions, moveServices);
 
 		// when
 		board.move(LEFT);
 
 		// then
 		assertThat(board.getPositions()).isEqualTo(initialPositions);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(3);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(3);
 	}
 
 	@Test
@@ -218,13 +213,15 @@ class BoardTest {
 				{new Tile(), new Tile(), new Tile(), new Tile()},
 				{	   null, new Tile(), new Tile(), new Tile()}
 		};
-		Board board = new Board(initialPositions, moveServices, winService);
+		Board board = new Board(initialPositions, moveServices);
 
 		// when
 		board.move(RIGHT);
 
 		// then
 		assertThat(board.getPositions()).isEqualTo(initialPositions);
+		assertThat(board.getEmptyPosition().getValue0()).isEqualTo(3);
+		assertThat(board.getEmptyPosition().getValue1()).isEqualTo(0);
 	}
 
 	@Test
@@ -237,7 +234,7 @@ class BoardTest {
 				{new Tile(13), new Tile(14), 	   null, new Tile(15)}
 		};
 
-		Board board = new Board(initialPositions, moveServices, new WinService());
+		Board board = new Board(initialPositions, moveServices);
 
 		// when
 		board.move(LEFT);
@@ -256,7 +253,7 @@ class BoardTest {
 				{new Tile(13), new Tile(15), 	   null, new Tile(14)}
 		};
 
-		Board board = new Board(initialPositions, moveServices, new WinService());
+		Board board = new Board(initialPositions, moveServices);
 
 		// when
 		board.move(LEFT);

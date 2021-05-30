@@ -4,7 +4,6 @@ import java.util.List;
 
 public class SolvabilityValidator {
 
-	// todo tests
 	// https://stackoverflow.com/questions/34570344/check-if-15-puzzle-is-solvable
 	public boolean isSolvable(List<Integer> puzzle) {
 		int parity = 0;

@@ -10,9 +10,9 @@ import ua.smolii.puzzle.model.GameState;
 @AllArgsConstructor
 public class InteractiveLoop {
 
-	private final Board board;
 	private final MovesReader movesReader;
 	private final InterfacePrinter printer;
+	private final Board board;
 
 	public void startGame() throws IOException {
 		printer.printStartInstructions();
@@ -23,7 +23,7 @@ public class InteractiveLoop {
 				Direction direction = movesReader.read();
 				board.move(direction);
 			}
-			catch (IllegalArgumentException e) { // todo custom exception
+			catch (InvalidDirectionException e) {
 				printer.printHelp(e.getMessage());
 			}
 		}
